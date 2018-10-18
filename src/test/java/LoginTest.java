@@ -74,7 +74,8 @@ public class LoginTest {
 
         loginPage.login( "klymenkosergey87@gmail.com", "VERA228606");
 
-        Assert.assertEquals(webDriver.getCurrentUrl(), "https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME",
+        Assert.assertEquals(webDriver.getCurrentUrl(),
+                "https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME",
                 "Login page URL is wrong.");
     }
 }
