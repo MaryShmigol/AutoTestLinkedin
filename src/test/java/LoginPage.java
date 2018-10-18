@@ -20,12 +20,9 @@ public class LoginPage {
         userPasswordField = webDriver.findElement(By.id("login-password"));
         signInButton = webDriver.findElement(By.id("login-submit"));
     }
-
     public void login(String userEmail, String userPassword){
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
         signInButton.click();
     }
-}
-
 }
