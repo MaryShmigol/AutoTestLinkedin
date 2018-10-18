@@ -41,21 +41,18 @@ public class LoginTest {
     public void successfulLoginTest() throws InterruptedException {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertEquals(webDriver.getCurrentUrl(), "https://www.linkedin.com/",
-                "Login page URL is wrong.");
-        Assert.assertEquals(webDriver.getTitle(), "LinkedIn: Войти или зарегистрироваться",
-                "Login page title is wrong.");
-        Assert.assertTrue(loginPage.signInButton.isDisplayed(),"Sign in button is not displayed on Login Page");
+        Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
         loginPage.login("klymenkosergey87@gmail.com", "vera228606");
         Assert.assertEquals(webDriver.getCurrentUrl(), "https://www.linkedin.com/feed/",
                 "Home page URL is wrong.");
-        Assert.assertEquals(webDriver.getTitle(), "LinkedIn" ,
+       Assert.assertEquals(webDriver.getTitle(), "LinkedIn" ,
                 "Home page title is wrong.");
         sleep(3000);
         HomePage homePage = new HomePage(webDriver);
-        Assert.assertTrue(homePage.profileNavItem.isDisplayed(),
-                "profileNavItem is not displayed on Login Page");
+        //Assert.assertTrue(homePage.profileNavItem.isDisplayed(),
+               // "profileNavItem is not displayed on Login Page");
     }
+
     @Test
     public void negativeLoginWithEmptyPasswordTest(){
         webDriver.get("https://linkedin.com");
@@ -66,6 +63,7 @@ public class LoginTest {
         Assert.assertEquals(webDriver.getCurrentUrl(), "https://www.linkedin.com/",
                 "Login page URL is wrong.");
     }
+
     @Test
     public void negativeRegistryLoginTest(){
         webDriver.get("https://linkedin.com");
