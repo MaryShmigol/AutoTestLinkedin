@@ -1,0 +1,2 @@
+public class LoginSubmitPage {
+}
