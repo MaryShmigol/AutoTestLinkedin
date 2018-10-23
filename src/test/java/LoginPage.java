@@ -1,8 +1,8 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 
 public class LoginPage {
 
@@ -38,7 +38,19 @@ public class LoginPage {
         signInButton.click();
         return new HomePage(webDriver);
     }
+    public LoginSubmit login1 (String userEmail, String userPassword){
+        userEmailField.sendKeys(userEmail);
+        userPasswordField.sendKeys(userPassword);
+        signInButton.click();
+        return new LoginSubmit(webDriver);
+    }
 
+    public LoginPage login2(String userEmail, String userPassword){
+        userEmailField.sendKeys(userEmail);
+        userPasswordField.sendKeys(userPassword);
+        signInButton.click();
+        return new LoginPage(webDriver);
+    }
 
 }
 
