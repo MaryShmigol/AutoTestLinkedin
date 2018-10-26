@@ -3,6 +3,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static java.lang.Thread.sleep;
@@ -20,6 +21,16 @@ public class LoginTest {
         webDriver.quit();
     }
 
+
+    @DataProvider
+    public Object[][] validDataProvider() {
+        return new Object[][]{
+                { "klymenkosergey87@gmail.com", "vera228606" },
+                {"KLYMENKOsergey87@gmail.com","vera228606"},
+                {"  klymenkosergey87@gmail.com  ","vera228606"},
+                };
+    }
+
     /**
      * PreConditions:
      * - Open FF browser.
@@ -31,29 +42,26 @@ public class LoginTest {
      * - Enter userPassword into userPassword field.
      * - Click on signIn button.
      * - Verify that Home page is loaded.
-     * <p>
      * PostCondition:
      * - Close FF browser.
      */
-    @Test
-    public void successfulLoginTest() throws InterruptedException {
+    @Test(dataProvider = "validDataProvider")
+    public void successfulLoginTest(String userEmail, String userPassword) throws InterruptedException {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        HomePage homePage = loginPage.login("klymenkosergey87@gmail.com", "vera228606");
+        HomePage homePage = loginPage.login(userEmail, userPassword);
         sleep(3000);
         Assert.assertTrue(homePage.isHomePageLoaded(),
                 "profile NavItem is not displayed on Login Page");
     }
 
     @Test
-    public void negativeLoginTestEmailWithoutAtTest() throws InterruptedException {
+    public void negativeLoginTestEmailWithoutAtTest(){
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-
-        LoginSubmit loginSubmit = loginPage.login1("klymenkosergey87gmail.com", "vera228606");
-        sleep(3000);
+        LoginSubmit loginSubmit = loginPage.login("klymenkosergey87gmail.com", "vera228606");
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(), "profile NavItem is not displayed on Login Page");
     }
     @Test
@@ -61,7 +69,7 @@ public class LoginTest {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit  = loginPage.login1( "klymenkosergey87@gmail.com", "VERA228606");
+        LoginSubmit loginSubmit  = loginPage.login( "klymenkosergey87@gmail.com", "VERA228606");
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
 
@@ -70,7 +78,7 @@ public class LoginTest {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit = loginPage.login1( "klyme@gmail.com", "8606");
+        LoginSubmit loginSubmit = loginPage.login( "klyme@gmail.com", "8606");
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
 
@@ -79,7 +87,7 @@ public class LoginTest {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit = loginPage.login1( "klyme@gmail.com", "vera228606");
+        LoginSubmit loginSubmit = loginPage.login( "klyme@gmail.com", "vera228606");
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
 
@@ -88,7 +96,7 @@ public class LoginTest {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit =loginPage.login1( "klymenkosergey87@gmail.com", "vera5568606");
+        LoginSubmit loginSubmit =loginPage.login( "klymenkosergey87@gmail.com", "vera5568606");
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
 
@@ -97,7 +105,7 @@ public class LoginTest {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginPage loginPage3 = loginPage.login2( "", "vera228606");
+        LoginPage loginPage3 = loginPage.login( "", "vera228606");
         Assert.assertTrue(loginPage3.isPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
     @Test
@@ -105,7 +113,7 @@ public class LoginTest {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginPage loginPageEmptyPassword = loginPage.login2("a@b.c", "");
+        LoginPage loginPageEmptyPassword = loginPage.login("a@b.c", "");
         Assert.assertTrue(loginPageEmptyPassword.isPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
 }
