@@ -15,7 +15,8 @@ public class LoginSubmit {
     @FindBy(xpath = "//*id = 'session_key-login-error']")
     private WebElement loginPaswordError;
 
-    @FindBy(xpath = "//*[@id = 'control_gen_1']")
+    @FindBy(xpath = "//div[contains(text()," +
+            "'При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля.')]")
     private WebElement errorMessage;
 
 
@@ -31,7 +32,10 @@ public class LoginSubmit {
     }
 
     public boolean isErrorMessageOnDisplayed(){
+
         return errorMessage.isDisplayed();
     }
 
-}
+
+    }
+

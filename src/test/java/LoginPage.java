@@ -31,6 +31,7 @@ public class LoginPage {
     }
 
     public boolean isSignInButtonDisplayed() {
+
         return signInButton.isDisplayed();
     }
 

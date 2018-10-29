@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -30,7 +31,29 @@ public class LoginTest {
                 {"  klymenkosergey87@gmail.com  ","vera228606"},
                 };
     }
+    @DataProvider
+    public Object[][] negativeTestLoginSubmit(){
+        return new Object[][]{
+                {"klymenkofsdfsergey8@7gmail.com", "vera228606",
+                "Этот адрес эл. почты не зарегистрирован в LinkedIn. Повторите попытку.",
+                        "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля."},
+                {"klymenkosergey87@gmail.com", "8606",
+                        " Это неверный пароль. Повторите попытку или ",
+                        "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля."},
+                {"klymenkosREWRergey87@gmail.com","sfdf",
+                        "Этот адрес эл. почты не зарегистрирован в LinkedIn. Повторите попытку.",
+                        "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля."}
 
+                 };
+    }
+    @DataProvider
+    public Object[][] negativeTestToLoginPage(){
+        return new Object[][]{
+                {"","vera228606"},
+                {"klymenkosergey87@gmail.com",""},
+                {"",""},
+        };
+    }
     /**
      * PreConditions:
      * - Open FF browser.
@@ -46,7 +69,8 @@ public class LoginTest {
      * - Close FF browser.
      */
     @Test(dataProvider = "validDataProvider")
-    public void successfulLoginTest(String userEmail, String userPassword) throws InterruptedException {
+    public void successfulLoginTest(String userEmail, String userPassword)
+            throws InterruptedException {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
@@ -56,65 +80,27 @@ public class LoginTest {
                 "profile NavItem is not displayed on Login Page");
     }
 
-    @Test
-    public void negativeLoginTestEmailWithoutAtTest(){
+    @Test(dataProvider = "negativeTestLoginSubmit")
+    public void negativeTestToSubmitPage (String userEmail, String userPassword,
+                                                    String fieldsErrorMessage,
+                                                    String generalAlertMessage)
+    {
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit = loginPage.login("klymenkosergey87gmail.com", "vera228606");
+        LoginSubmit loginSubmit = loginPage.login(userEmail, userPassword );
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(), "profile NavItem is not displayed on Login Page");
+        webDriver.getPageSource().contains(fieldsErrorMessage);
+        webDriver.getPageSource().contains(generalAlertMessage);
     }
-    @Test
-    public void negativeRegistryPasswordTest(){
+    @Test(dataProvider = "negativeTestToLoginPage")
+    public void negativeTestLoginPage(String userEmail, String userPassword){
         webDriver.get("https://linkedin.com");
         LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit  = loginPage.login( "klymenkosergey87@gmail.com", "VERA228606");
-        Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
+        LoginPage loginPageTest = loginPage.login(userEmail, userPassword);
+        Assert.assertTrue(loginPageTest.isPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
 
-    @Test
-    public void negativeLoginTestWrongPasswordEmailTest(){
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit = loginPage.login( "klyme@gmail.com", "8606");
-        Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
-    }
-
-    @Test
-    public void  negativeLoginTestWrongLoginTest(){
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit = loginPage.login( "klyme@gmail.com", "vera228606");
-        Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
-    }
-
-    @Test
-    public void negativeLoginTestWrongPasswordTest(){
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit =loginPage.login( "klymenkosergey87@gmail.com", "vera5568606");
-        Assert.assertTrue(loginSubmit.isErrorPageLoaded(),"profile NavItem is not displayed on Login Page");
-    }
-
-    @Test
-    public void negativeLoginTestEmptyLoginTest(){
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginPage loginPage3 = loginPage.login( "", "vera228606");
-        Assert.assertTrue(loginPage3.isPageLoaded(),"profile NavItem is not displayed on Login Page");
-    }
-    @Test
-    public void negativeLoginWithEmptyPasswordTest(){
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
-        Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginPage loginPageEmptyPassword = loginPage.login("a@b.c", "");
-        Assert.assertTrue(loginPageEmptyPassword.isPageLoaded(),"profile NavItem is not displayed on Login Page");
-    }
 }
 
