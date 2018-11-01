@@ -1,4 +1,3 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -11,10 +10,14 @@ import static java.lang.Thread.sleep;
 
 public class LoginTest {
     WebDriver webDriver;
+    LoginPage loginPage;
 
     @BeforeMethod
     public void beforeMethod() {
+
         webDriver = new FirefoxDriver();
+        webDriver.get("https://linkedin.com");
+        loginPage = new LoginPage(webDriver);
     }
 
     @AfterMethod
@@ -32,20 +35,13 @@ public class LoginTest {
                 };
     }
     @DataProvider
-    public Object[][] negativeTestLoginSubmit(){
+    public Object[][] validationMessagesCombination(){
         return new Object[][]{
-                {"klymenkofsdfsergey8@7gmail.com", "vera228606",
-                "Этот адрес эл. почты не зарегистрирован в LinkedIn. Повторите попытку.",
-                        "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля."},
-                {"klymenkosergey87@gmail.com", "8606",
-                        " Это неверный пароль. Повторите попытку или ",
-                        "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля."},
-                {"klymenkosREWRergey87@gmail.com","sfdf",
-                        "Этот адрес эл. почты не зарегистрирован в LinkedIn. Повторите попытку.",
-                        "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля."}
-
+                {"klymenkofsdfsergey8@7gmail.com", "vera228606", "",""},
+                {"klymenkosergey87@gmail.com", "86ewweewww06", "", ""},
                  };
     }
+
     @DataProvider
     public Object[][] negativeTestToLoginPage(){
         return new Object[][]{
@@ -71,36 +67,38 @@ public class LoginTest {
     @Test(dataProvider = "validDataProvider")
     public void successfulLoginTest(String userEmail, String userPassword)
             throws InterruptedException {
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        HomePage homePage = loginPage.login(userEmail, userPassword);
+        HomePage homePage = loginPage.login(userEmail, userPassword); //пример для перехода на страницу
         sleep(3000);
         Assert.assertTrue(homePage.isHomePageLoaded(),
                 "profile NavItem is not displayed on Login Page");
     }
 
-    @Test(dataProvider = "negativeTestLoginSubmit")
-    public void negativeTestToSubmitPage (String userEmail, String userPassword,
-                                                    String fieldsErrorMessage,
-                                                    String generalAlertMessage)
+    @Test(dataProvider = "validationMessagesCombination")
+    public void validMessageOnInvalidEmailPasswordTest (String userEmail,
+                                                        String userPassword,
+                                                        String emailValidationMessage,
+                                                        String passwordValidationMessage)
     {
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
+
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        LoginSubmit loginSubmit = loginPage.login(userEmail, userPassword );
+
+        SubmitPage loginSubmit = loginPage.login(userEmail, userPassword );
         Assert.assertTrue(loginSubmit.isErrorPageLoaded(), "profile NavItem is not displayed on Login Page");
-        webDriver.getPageSource().contains(fieldsErrorMessage);
-        webDriver.getPageSource().contains(generalAlertMessage);
+        Assert.assertEquals(loginSubmit.getAlertMessageText(),
+                "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля.",
+                "Alert message text i wrong");
+        Assert.assertEquals(loginSubmit.getEmailValidationMessage(), emailValidationMessage,
+                "Email validation message is wrong");
+        Assert.assertEquals(loginSubmit.getPasswordValidationMessage(), passwordValidationMessage,
+                "Password validation message is wrong");
     }
+
     @Test(dataProvider = "negativeTestToLoginPage")
     public void negativeTestLoginPage(String userEmail, String userPassword){
-        webDriver.get("https://linkedin.com");
-        LoginPage loginPage = new LoginPage(webDriver);
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
         LoginPage loginPageTest = loginPage.login(userEmail, userPassword);
         Assert.assertTrue(loginPageTest.isPageLoaded(),"profile NavItem is not displayed on Login Page");
     }
-
 }
 

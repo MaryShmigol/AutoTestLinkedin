@@ -49,7 +49,7 @@ public class LoginPage {
             return (T) new HomePage(webDriver);
         }
         if (webDriver.getCurrentUrl().contains("uas/login-submit")) {
-            return (T) new LoginSubmit(webDriver);
+            return (T) new SubmitPage(webDriver);
         } else {
             return (T) new LoginPage(webDriver);
         }

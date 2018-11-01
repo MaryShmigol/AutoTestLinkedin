@@ -3,24 +3,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginSubmit {
+public class SubmitPage {
     private WebDriver webDriver;
 
     @FindBy (xpath = "//*[@id= 'session_key-login-error']")
-    private WebElement loginError;
+    private WebElement emailValidationMessage;
 
     @FindBy (xpath = "//*[@id = 'session_password-login-error']")
-    private WebElement passwordError;
+    private WebElement passwordValidationMessage;
 
-    @FindBy(xpath = "//*id = 'session_key-login-error']")
-    private WebElement loginPaswordError;
-
-    @FindBy(xpath = "//div[contains(text()," +
-            "'При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля.')]")
-    private WebElement errorMessage;
+    @FindBy(xpath = "//div[@role='alert']")
+    private WebElement alertBox;
 
 
-    public LoginSubmit (WebDriver webDriver){
+    public SubmitPage(WebDriver webDriver){
         this.webDriver=webDriver;
         PageFactory.initElements(webDriver, this);
     }
@@ -33,9 +29,20 @@ public class LoginSubmit {
 
     public boolean isErrorMessageOnDisplayed(){
 
-        return errorMessage.isDisplayed();
+        return alertBox.isDisplayed();
     }
 
+    public String getAlertMessageText() {
 
+        return alertBox.getText();
     }
+
+    public String getEmailValidationMessage() {
+        return emailValidationMessage.getText();
+    }
+
+    public String getPasswordValidationMessage() {
+        return passwordValidationMessage.getText();
+    }
+}
 

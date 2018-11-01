@@ -9,6 +9,12 @@ public class HomePage {
     @FindBy(xpath = "//li[@id='profile-nav-item']")
     private WebElement profileNavItem;
 
+    @FindBy(xpath = "//*[@type='search-icon']")
+    private WebElement searchLoop;
+
+    @FindBy(xpath = "//input[@placeholder='Поиск']")
+    private WebElement searchField;
+
     public HomePage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
@@ -21,7 +27,15 @@ public class HomePage {
     }
 
     public boolean isProfileNavItemOnDisplayed() {
-
         return profileNavItem.isDisplayed();
     }
+
+
+    public SearchPage searchByTerm(String searchTerm) {
+        searchField.sendKeys(searchTerm);
+        searchLoop.click();
+        return new SearchPage(webDriver);
+    }
+
+
 }
