@@ -44,24 +44,26 @@ public class SearchTest {
      *
      */
     @Test
-    public void basicSearchTest() {
-        String searchTerm = "hr";
-
+    public void basicSearchTest() throws InterruptedException {
+        String searchTerm = "HR";
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
         HomePage homePage = loginPage.login("klymenkosergey87@gmail.com", "vera228606");
         Assert.assertTrue(homePage.isHomePageLoaded(),
                 "profile NavItem is not displayed on Login Page");
 
-        SearchPage searchPage = homePage.searchByTerm(searchTerm);
-        Assert.assertTrue(searchPage.isSearchPageLoaded(), "Search page is not loaded");
-
-
+        SearchPage searchPage = homePage.search(searchTerm);
+        Assert.assertTrue(searchPage.isPageLoaded(), "Login page is not loaded");
+        Assert.assertEquals(searchPage.getSearchResultsCount(), 10, "Search results count is wrong");
         List<String> searchResultList = searchPage.getSearchResults();
-        Assert.assertEquals(searchResultList.size(), 10, "Number of results is wrong");
 
-        for (String searchResult : searchResultList) {
+        for (String searchResult : searchResultList){
             Assert.assertTrue(searchResult.toLowerCase().contains(searchTerm.toLowerCase()),
-                    "Searchterm "+searchResult+ " not found"+  searchResult);
+                    "Search Term" + searchTerm + " not found"+ searchResult);
         }
+
+
+       //     Assert.assertTrue(searchResult.toLowerCase().contains(searchTerm.toLowerCase()),
+             ///       "Searchterm "+searchResult+ " not found"+  searchResult);
+       // }
     }
 }

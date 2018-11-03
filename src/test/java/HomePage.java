@@ -1,7 +1,10 @@
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import static java.lang.Thread.sleep;
 
 public class HomePage {
     private WebDriver webDriver;
@@ -29,11 +32,10 @@ public class HomePage {
     public boolean isProfileNavItemOnDisplayed() {
         return profileNavItem.isDisplayed();
     }
-
-
-    public SearchPage searchByTerm(String searchTerm) {
+    public SearchPage search(String searchTerm) throws InterruptedException {
         searchField.sendKeys(searchTerm);
-        searchLoop.click();
+        searchField.sendKeys(Keys.RETURN);
+        sleep(3000);
         return new SearchPage(webDriver);
     }
 
