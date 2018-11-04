@@ -7,7 +7,13 @@ public class EnterEmailPage {
     private WebDriver webDriver;
 
     @FindBy(className = "form__submit")
-    private WebElement sendNewPaswordOnEmail;
+    private WebElement sendNewPaswordOnEmailText;
+
+    @FindBy(id = "username")
+    private WebElement enterEmailField;
+
+    @FindBy(className = "reset-password-submit-button" )
+    private WebElement sendNewPasswordOnYourEmailButton;
 
     public EnterEmailPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -21,6 +27,12 @@ public class EnterEmailPage {
     }
 
     private boolean isSendNewPasswordOnEmailOnDisplayed() {
-        return sendNewPaswordOnEmail.isDisplayed();
+        return sendNewPaswordOnEmailText.isDisplayed();
+    }
+
+    public PasswordOnYourEmailPage enterEmailOnField(String userEmail) {
+        enterEmailField.sendKeys(userEmail);
+        sendNewPasswordOnYourEmailButton.click();
+        return new PasswordOnYourEmailPage(webDriver);
     }
 }

@@ -21,10 +21,18 @@ public class RequestPasswordTest {
     }
     @Test
     public void RequestPassword(){
+        String userEmail = "klymenkosergey87@gmail.com";
+
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
 
         EnterEmailPage enterEmailPage = loginPage.clickOnForgotPasswordButton();
         Assert.assertTrue(enterEmailPage.isEnterEmailPageLoaded(),"Request Page is not loaded");
+
+       PasswordOnYourEmailPage passwordOnYourEmailPage = enterEmailPage.enterEmailOnField(userEmail);
+       Assert.assertTrue(passwordOnYourEmailPage.isPasswordOnYourEmailPageLoaded(),"PasswordOnYourEmailPage was not loaded");
+
+       
+
     }
 }
 
