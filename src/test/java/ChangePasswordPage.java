@@ -3,8 +3,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import javax.print.DocFlavor;
-
 public class ChangePasswordPage {
     private WebDriver webDriver;
 
@@ -24,5 +22,9 @@ public class ChangePasswordPage {
 
     private boolean isChangePasswordTextOnDisplayed() {
         return changePasswordText.isDisplayed();
+    }
+
+    public PasswordWasChangePage changePassword(String newPassword, String confirmNewPassword) {
+        
     }
 }

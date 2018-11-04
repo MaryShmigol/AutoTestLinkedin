@@ -5,6 +5,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static java.lang.Thread.sleep;
+
 public class RequestPasswordTest {
     private WebDriver webDriver;
     LoginPage loginPage;
@@ -20,8 +22,11 @@ public class RequestPasswordTest {
         webDriver.quit();
     }
     @Test
-    public void RequestPassword(){
+    public void RequestPassword() throws InterruptedException {
         String userEmail = "klymenkosergey87@gmail.com";
+
+        String newPassword = "hello123456";
+        String confirmNewPassword = "hello123456";
 
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
 
@@ -32,9 +37,12 @@ public class RequestPasswordTest {
        Assert.assertTrue(passwordOnYourEmailPage.isPasswordOnYourEmailPageLoaded(),"PasswordOnYourEmailPage was not loaded");
 
        ChangePasswordPage changePasswordPage = passwordOnYourEmailPage.navigateToLinkFromEmail();
+       sleep(15000);
        Assert.assertTrue(changePasswordPage.isChangePasswordPageLoaded(), "ChangePasswordPage was not loaded");
 
-       
+       PasswordWasChangePage passwordWasChangePage = changePasswordPage.changePassword(newPassword,confirmNewPassword);
+
+
 
 
 
