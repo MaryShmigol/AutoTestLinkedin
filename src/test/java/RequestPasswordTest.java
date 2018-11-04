@@ -25,8 +25,8 @@ public class RequestPasswordTest {
     public void RequestPassword() throws InterruptedException {
         String userEmail = "klymenkosergey87@gmail.com";
 
-        String newPassword = "hello123456";
-        String confirmNewPassword = "hello123456";
+        String newPassword = "hello12345678";
+        String confirmNewPassword = "hello12345678";
 
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
 
@@ -34,13 +34,14 @@ public class RequestPasswordTest {
         Assert.assertTrue(enterEmailPage.isEnterEmailPageLoaded(),"Request Page is not loaded");
 
        PasswordOnYourEmailPage passwordOnYourEmailPage = enterEmailPage.enterEmailOnField(userEmail);
+       sleep(3000);
        Assert.assertTrue(passwordOnYourEmailPage.isPasswordOnYourEmailPageLoaded(),"PasswordOnYourEmailPage was not loaded");
-
+       sleep(50000);
        ChangePasswordPage changePasswordPage = passwordOnYourEmailPage.navigateToLinkFromEmail();
-       sleep(15000);
        Assert.assertTrue(changePasswordPage.isChangePasswordPageLoaded(), "ChangePasswordPage was not loaded");
 
        PasswordWasChangePage passwordWasChangePage = changePasswordPage.changePassword(newPassword,confirmNewPassword);
+       Assert.assertTrue(passwordWasChangePage.isPasswordWasChangePageLoaded(), "Password was not change");
 
 
 

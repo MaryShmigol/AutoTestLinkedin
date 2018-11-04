@@ -12,7 +12,7 @@ public class EnterEmailPage {
     @FindBy(id = "username")
     private WebElement enterEmailField;
 
-    @FindBy(className = "reset-password-submit-button" )
+    @FindBy(id = "reset-password-submit-button" )
     private WebElement sendNewPasswordOnYourEmailButton;
 
     public EnterEmailPage(WebDriver webDriver) {

@@ -9,13 +9,22 @@ public class ChangePasswordPage {
     @FindBy(className = "content__header")
     private WebElement changePasswordText;
 
+    @FindBy(id = "newPassword")
+    private WebElement newPaswordField;
+
+    @FindBy(id = "confirmPassword")
+    private WebElement confirmNewPasswordField;
+
+    @FindBy(id = "reset-password-submit-button")
+    private WebElement createNewPaswordButton;
+
     public ChangePasswordPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
     public boolean isChangePasswordPageLoaded() {
-        return webDriver.getCurrentUrl().contains("checkpoint/rp/password-reset?requestSubmissionId")
+        return webDriver.getCurrentUrl().contains("checkpoint/rp/password")
                 && webDriver.getTitle().contains("Изменить пароль | LinkedIn")
                 && isChangePasswordTextOnDisplayed();
     }
@@ -25,6 +34,9 @@ public class ChangePasswordPage {
     }
 
     public PasswordWasChangePage changePassword(String newPassword, String confirmNewPassword) {
-        
+        newPaswordField.sendKeys(newPassword);
+        confirmNewPasswordField.sendKeys(confirmNewPassword);
+        createNewPaswordButton.click();
+        return new PasswordWasChangePage(webDriver);
     }
 }
