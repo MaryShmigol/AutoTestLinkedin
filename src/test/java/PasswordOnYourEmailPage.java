@@ -23,4 +23,9 @@ public class PasswordOnYourEmailPage {
     private boolean isPasswordOnYourEmailTextOnDisplayed() {
         return passwordOnYourEmailText.isDisplayed();
     }
+
+    public ChangePasswordPage navigateToLinkFromEmail() {
+        webDriver.navigate().to("");
+        return new ChangePasswordPage(webDriver);
+    }
 }

@@ -31,7 +31,13 @@ public class RequestPasswordTest {
        PasswordOnYourEmailPage passwordOnYourEmailPage = enterEmailPage.enterEmailOnField(userEmail);
        Assert.assertTrue(passwordOnYourEmailPage.isPasswordOnYourEmailPageLoaded(),"PasswordOnYourEmailPage was not loaded");
 
+       ChangePasswordPage changePasswordPage = passwordOnYourEmailPage.navigateToLinkFromEmail();
+       Assert.assertTrue(changePasswordPage.isChangePasswordPageLoaded(), "ChangePasswordPage was not loaded");
+
        
+
+
+
 
     }
 }
