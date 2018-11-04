@@ -60,10 +60,5 @@ public class SearchTest {
             Assert.assertTrue(searchResult.toLowerCase().contains(searchTerm.toLowerCase()),
                     "Search Term" + searchTerm + " not found"+ searchResult);
         }
-
-
-       //     Assert.assertTrue(searchResult.toLowerCase().contains(searchTerm.toLowerCase()),
-             ///       "Searchterm "+searchResult+ " not found"+  searchResult);
-       // }
     }
 }

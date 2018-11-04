@@ -17,14 +17,14 @@ public class RequestPasswordTest {
     }
     @AfterMethod
     public void afterMethod() {
-
         webDriver.quit();
     }
     @Test
     public void RequestPassword(){
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        RequestPage requestPage = loginPage.clickOnForgotPassword();
-        Assert.assertTrue(requestPage.isRequestPageLoaded(),"Request Page is not loaded");
+
+        EnterEmailPage enterEmailPage = loginPage.clickOnForgotPasswordButton();
+        Assert.assertTrue(enterEmailPage.isEnterEmailPageLoaded(),"Request Page is not loaded");
     }
 }
 
