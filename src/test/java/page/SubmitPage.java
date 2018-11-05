@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +23,7 @@ public class SubmitPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public boolean isErrorPageLoaded(){
+    public boolean isPageLoaded(){
         return webDriver.getCurrentUrl().equals("https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME")
                 && webDriver.getTitle().contains("Войти в LinkedIn")
                 && isErrorMessageOnDisplayed();

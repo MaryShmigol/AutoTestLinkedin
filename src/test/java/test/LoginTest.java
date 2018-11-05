@@ -1,31 +1,13 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+package test;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
+import page.HomePage;
+import page.LoginPage;
+import page.SubmitPage;
 import static java.lang.Thread.sleep;
 
-public class LoginTest {
-    WebDriver webDriver;
-    LoginPage loginPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-
-        webDriver = new FirefoxDriver();
-        webDriver.get("https://linkedin.com");
-        loginPage = new LoginPage(webDriver);
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        webDriver.quit();
-    }
-
-
+public class LoginTest extends BaseTest{
     @DataProvider
     public Object[][] validDataProvider() {
         return new Object[][]{
@@ -65,12 +47,14 @@ public class LoginTest {
      * - Close FF browser.
      */
     @Test(dataProvider = "validDataProvider")
-    public void successfulLoginTest(String userEmail, String userPassword)
-            throws InterruptedException {
+    public void successfulLoginTest(String userEmail,
+                                    String userPassword)
+            throws InterruptedException
+    {
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
         HomePage homePage = loginPage.login(userEmail, userPassword); //пример для перехода на страницу
         sleep(3000);
-        Assert.assertTrue(homePage.isHomePageLoaded(),
+        Assert.assertTrue(homePage.isPageLoaded(),
                 "profile NavItem is not displayed on Login Page");
     }
 
@@ -80,11 +64,9 @@ public class LoginTest {
                                                         String emailValidationMessage,
                                                         String passwordValidationMessage)
     {
-
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-
         SubmitPage loginSubmit = loginPage.login(userEmail, userPassword );
-        Assert.assertTrue(loginSubmit.isErrorPageLoaded(), "profile NavItem is not displayed on Login Page");
+        Assert.assertTrue(loginSubmit.isPageLoaded(), "profile NavItem is not displayed on Login Page");
         Assert.assertEquals(loginSubmit.getAlertMessageText(),
                 "При заполнении формы были допущены ошибки. Проверьте и исправьте отмеченные поля.",
                 "Alert message text i wrong");
@@ -95,7 +77,9 @@ public class LoginTest {
     }
 
     @Test(dataProvider = "negativeTestToLoginPage")
-    public void negativeTestLoginPage(String userEmail, String userPassword){
+    public void negativeTestLoginPage(String userEmail,
+                                      String userPassword)
+    {
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
         LoginPage loginPageTest = loginPage.login(userEmail, userPassword);
         Assert.assertTrue(loginPageTest.isPageLoaded(),"profile NavItem is not displayed on Login Page");

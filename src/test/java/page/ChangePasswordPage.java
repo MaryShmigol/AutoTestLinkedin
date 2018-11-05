@@ -1,7 +1,10 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import util.GMailService;
 
 public class ChangePasswordPage {
     private WebDriver webDriver;
@@ -23,7 +26,7 @@ public class ChangePasswordPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public boolean isChangePasswordPageLoaded() {
+    public boolean isPageLoaded() {
         return webDriver.getCurrentUrl().contains("checkpoint/rp/password")
                 && webDriver.getTitle().contains("Изменить пароль | LinkedIn")
                 && isChangePasswordTextOnDisplayed();
@@ -34,9 +37,20 @@ public class ChangePasswordPage {
     }
 
     public PasswordWasChangePage changePassword(String newPassword, String confirmNewPassword) {
+
+        GMailService gMailService = new GMailService();
+        gMailService.connect();
+
         newPaswordField.sendKeys(newPassword);
         confirmNewPasswordField.sendKeys(confirmNewPassword);
         createNewPaswordButton.click();
+
+        String messageSubject = "Lesson 10";
+        String messageTo = "klymenkosergey87@gmail.com";
+        String messageFrom = "security-noreply@linkedin.com";
+
+        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 60);
+        System.out.println("Content: " + message);
         return new PasswordWasChangePage(webDriver);
     }
 }

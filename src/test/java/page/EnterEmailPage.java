@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,7 +22,7 @@ public class EnterEmailPage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public boolean isEnterEmailPageLoaded() {
+    public boolean isPageLoaded() {
         return webDriver.getCurrentUrl().contains("/uas/request-password-reset")
                 && webDriver.getTitle().contains("Изменить пароль | LinkedIn")
                 && isSendNewPasswordOnEmailOnDisplayed();

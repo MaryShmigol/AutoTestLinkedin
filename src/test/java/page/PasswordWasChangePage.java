@@ -1,3 +1,4 @@
+package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +15,7 @@ public class PasswordWasChangePage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public boolean isPasswordWasChangePageLoaded() {
+    public boolean isPageLoaded() {
         return webDriver.getCurrentUrl().contains("checkpoint/rp/password-reset-submit")
                 && webDriver.getTitle().contains("Вы изменили свой пароль. | LinkedIn")
                 && isPasswordWasChangeTextOnDisplayed();

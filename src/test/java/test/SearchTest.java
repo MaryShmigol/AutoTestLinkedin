@@ -1,30 +1,11 @@
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+package test;
+import org.testng.Assert;;
 import org.testng.annotations.Test;
-
+import page.HomePage;
+import page.SearchPage;
 import java.util.List;
 
-
-public class SearchTest {
-    WebDriver webDriver;
-    LoginPage loginPage;
-
-    @BeforeMethod
-    public void beforeMethod() {
-
-        webDriver = new FirefoxDriver();
-        webDriver.get("https://linkedin.com");
-        loginPage = new LoginPage(webDriver);
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        webDriver.quit();
-    }
-
+public class SearchTest extends BaseTest{
     /**
      * Precondition:
      * -open new Browser.
@@ -48,7 +29,7 @@ public class SearchTest {
         String searchTerm = "HR";
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
         HomePage homePage = loginPage.login("klymenkosergey87@gmail.com", "vera228606");
-        Assert.assertTrue(homePage.isHomePageLoaded(),
+        Assert.assertTrue(homePage.isPageLoaded(),
                 "profile NavItem is not displayed on Login Page");
 
         SearchPage searchPage = homePage.search(searchTerm);
