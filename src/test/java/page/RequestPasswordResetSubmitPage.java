@@ -33,13 +33,13 @@ public class RequestPasswordResetSubmitPage extends BasePage{
         String messageSubject = "Сергей, данное сообщение содержит ссылку для изменения пароля";
         String messageTo = "uu08474@gmail.com";
         String messageFrom = "security-noreply@linkedin.com";
-        GMailService gMailService = new GMailService();
 
         String message = gMailService.waitMessage(messageSubject,messageTo, messageFrom, 300);
+        System.out.println("Content:"+ message);
 
         String resetPasswordLink = StringUtils.substringBetween(message,
-                "нажмите <a href="+'"',
-                '"'+" style=").replace("&amp;","&");
+                "нажмите <a href=" + '"',
+                '"' + " style=").replace("&amp;","&");
         webDriver.get(resetPasswordLink);
         return new SetNewPasswordPage(webDriver);
 

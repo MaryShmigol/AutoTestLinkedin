@@ -28,15 +28,12 @@ public class LoginPage {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
-
     public boolean isPageLoaded() {
         return webDriver.getCurrentUrl().equals("https://www.linkedin.com/")
                 && webDriver.getTitle().equals("LinkedIn: Войти или зарегистрироваться")
                 && isSignInButtonDisplayed();
     }
-
     public boolean isSignInButtonDisplayed() {
-
         return signInButton.isDisplayed();
     }
 

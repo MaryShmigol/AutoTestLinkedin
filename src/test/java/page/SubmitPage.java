@@ -17,32 +17,24 @@ public class SubmitPage {
     @FindBy(xpath = "//div[@role='alert']")
     private WebElement alertBox;
 
-
     public SubmitPage(WebDriver webDriver){
         this.webDriver=webDriver;
         PageFactory.initElements(webDriver, this);
     }
-
     public boolean isPageLoaded(){
-        return webDriver.getCurrentUrl().equals("https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME")
+        return webDriver.getCurrentUrl().contains("https://www.linkedin.com/uas/login-submit?loginSubmitSource=GUEST_HOME")
                 && webDriver.getTitle().contains("Войти в LinkedIn")
                 && isErrorMessageOnDisplayed();
     }
-
     public boolean isErrorMessageOnDisplayed(){
-
         return alertBox.isDisplayed();
     }
-
     public String getAlertMessageText() {
-
         return alertBox.getText();
     }
-
     public String getEmailValidationMessage() {
         return emailValidationMessage.getText();
     }
-
     public String getPasswordValidationMessage() {
         return passwordValidationMessage.getText();
     }

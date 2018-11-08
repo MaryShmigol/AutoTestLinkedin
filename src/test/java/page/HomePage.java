@@ -31,13 +31,11 @@ public class HomePage extends BasePage{
     }
 
     public boolean isProfileNavItemOnDisplayed() {
-
         return profileNavItem.isDisplayed();
     }
-    public SearchPage search(String searchTerm) throws InterruptedException {
+    public SearchPage search(String searchTerm) {
         searchField.sendKeys(searchTerm);
         searchField.sendKeys(Keys.RETURN);
-        sleep(3000);
         return new SearchPage(webDriver);
     }
 

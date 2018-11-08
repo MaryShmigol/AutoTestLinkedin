@@ -28,11 +28,11 @@ public class RequestPasswordResetPage extends BasePage{
     }
 
     private boolean isEmailFieldOnDisplayed() {
-        return emailField.isDisplayed();
+        return emailSumbitButton.isDisplayed();
     }
 
     public RequestPasswordResetSubmitPage submitUserEmail(String userEmail){
-        GMailService gMailService = new GMailService();
+        gMailService = new GMailService();
         gMailService.connect();
         emailField.sendKeys(userEmail);
         emailSumbitButton.click();
