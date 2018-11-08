@@ -28,7 +28,7 @@ public class SearchTest extends BaseTest{
     public void basicSearchTest() throws InterruptedException {
         String searchTerm = "HR";
         Assert.assertTrue(loginPage.isPageLoaded(), "Login page is not loaded");
-        HomePage homePage = loginPage.login("klymenkosergey87@gmail.com", "vera228606");
+        HomePage homePage = loginPage.login("uu08474@gmail.com", "hello228606");
         Assert.assertTrue(homePage.isPageLoaded(),
                 "profile NavItem is not displayed on Login Page");
 

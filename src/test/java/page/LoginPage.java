@@ -60,9 +60,9 @@ public class LoginPage {
         }
     }
 
-    public EnterEmailPage clickOnForgotPasswordButton() {
+    public RequestPasswordResetPage clickOnForgotPasswordButton() {
         buttonForgotPasword.click();
-        return new EnterEmailPage(webDriver);
+        return new RequestPasswordResetPage(webDriver);
     }
 }
 

@@ -1,8 +1,5 @@
 package util;
-
-
 import com.sun.mail.imap.IdleManager;
-
 import javax.mail.*;
 import javax.mail.event.MessageCountAdapter;
 import javax.mail.event.MessageCountEvent;
@@ -28,7 +25,7 @@ public class GMailService {
      */
     public static void main(String[] args) {
         String messageSubject = "Lesson 10";
-        String messageTo = "klymenkosergey87@gmail.com";
+        String messageTo = "uu08474@gmail.com";
         String messageFrom = "security-noreply@linkedin.com";
 
         GMailService gMailService = new GMailService();
@@ -41,8 +38,8 @@ public class GMailService {
      * Default util.GMailService constructor with predefined user/pass credentials
      */
     public GMailService(){
-        this.user = "klymenkosergey87@gmail.com";
-        this.pass = "JackOld7b";
+        this.user = "uu08474@gmail.com";
+        this.pass = "hello228606";
     }
 
     /**

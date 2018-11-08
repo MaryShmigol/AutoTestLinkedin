@@ -11,24 +11,24 @@ public class LoginTest extends BaseTest{
     @DataProvider
     public Object[][] validDataProvider() {
         return new Object[][]{
-                { "klymenkosergey87@gmail.com", "vera228606" },
-                {"KLYMENKOsergey87@gmail.com","vera228606"},
-                {"  klymenkosergey87@gmail.com  ","vera228606"},
+                { "uu08474@gmail.com", "hello228606" },
+                {"uu08474@gmail.com","hello228606"},
+                {"  uu08474@gmail.com  ","hello228606"},
                 };
     }
     @DataProvider
     public Object[][] validationMessagesCombination(){
         return new Object[][]{
-                {"klymenkofsdfsergey8@7gmail.com", "vera228606", "",""},
-                {"klymenkosergey87@gmail.com", "86ewweewww06", "", ""},
+                {"klymenkofsdfsergey8@7gmail.com", "hello228606", "",""},
+                {"uu08474@gmail.com", "86ewweewww06", "", ""},
                  };
     }
 
     @DataProvider
     public Object[][] negativeTestToLoginPage(){
         return new Object[][]{
-                {"","vera228606"},
-                {"klymenkosergey87@gmail.com",""},
+                {"","hello228606"},
+                {"uu08474@gmail.com",""},
                 {"",""},
         };
     }
@@ -75,7 +75,6 @@ public class LoginTest extends BaseTest{
         Assert.assertEquals(loginSubmit.getPasswordValidationMessage(), passwordValidationMessage,
                 "Password validation message is wrong");
     }
-
     @Test(dataProvider = "negativeTestToLoginPage")
     public void negativeTestLoginPage(String userEmail,
                                       String userPassword)
