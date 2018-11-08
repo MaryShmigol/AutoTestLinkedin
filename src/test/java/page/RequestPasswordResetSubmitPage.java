@@ -29,19 +29,21 @@ public class RequestPasswordResetSubmitPage extends BasePage{
     }
 
     public SetNewPasswordPage navigateToLinkFromEmail(){
-        GMailService gMailService = new GMailService();
+
         String messageSubject = "Сергей, данное сообщение содержит ссылку для изменения пароля";
         String messageTo = "uu08474@gmail.com";
-        String messageFrom = "LinkedIn <security-noreply@linkedin.com>";
-        String message = gMailService.waitMessage(messageSubject, messageTo, messageFrom, 200);
+        String messageFrom = "security-noreply@linkedin.com";
+        GMailService gMailService = new GMailService();
 
-        String resetPaswordLink = StringUtils.substringBetween(
-                message,
-                "Чтобы изменить пароль в LinkedIn, нажмите <a href=\"",
-                "\" style").replace("&amp;", "&");
-        System.out.println("Content:"+resetPaswordLink);
+        String message = gMailService.waitMessage(messageSubject,messageTo, messageFrom, 300);
 
-        webDriver.get(resetPaswordLink);
+        String resetPasswordLink = StringUtils.substringBetween(message,
+                "нажмите <a href="+'"',
+                '"'+" style=").replace("&amp;","&");
+        webDriver.get(resetPasswordLink);
         return new SetNewPasswordPage(webDriver);
+
+
     }
+
 }
