@@ -5,9 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static java.lang.Thread.sleep;
-
-
 public class LoginPage {
 
     private WebDriver webDriver;
@@ -24,29 +21,42 @@ public class LoginPage {
     @FindBy(className= "link-forgot-password")
     private WebElement buttonForgotPasword;
 
+    /**
+     * @param webDriver
+     * Method which initiate web driver in this class and initiate web elements
+     */
     public LoginPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
+
+    /**
+     * Method which test is page loaded or not
+     */
     public boolean isPageLoaded() {
         return webDriver.getCurrentUrl().equals("https://www.linkedin.com/")
                 && webDriver.getTitle().equals("LinkedIn: Войти или зарегистрироваться")
                 && isSignInButtonDisplayed();
     }
+
+    /**
+     * Method which show signInButton is visible
+     */
     public boolean isSignInButtonDisplayed() {
         return signInButton.isDisplayed();
     }
 
+    /**
+     * @param userEmail
+     * @param userPassword
+     * @param <T>
+     * Method which enter to input email, password and click on submit button and login into Linkedin
+     */
     public <T> T login(String userEmail, String userPassword){
         userEmailField.sendKeys(userEmail);
         userPasswordField.sendKeys(userPassword);
         signInButton.click();
 
-        try {
-            sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         if (webDriver.getCurrentUrl().contains("/feed")) {
             return (T) new HomePage(webDriver);
         }
@@ -57,6 +67,9 @@ public class LoginPage {
         }
     }
 
+    /**
+     * Method which click on ForgotPassword button
+     */
     public RequestPasswordResetPage clickOnForgotPasswordButton() {
         buttonForgotPasword.click();
         return new RequestPasswordResetPage(webDriver);

@@ -17,6 +17,7 @@ public class BaseTest {
     }
     @AfterMethod
     public void afterMethod() {
+
         webDriver.quit();
     }
 }

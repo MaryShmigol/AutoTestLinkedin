@@ -20,17 +20,29 @@ public class SearchPage {
     private WebElement searchBar;
 
 
+    /**
+     * @param webDriver
+     * Method which initiate web driver in this class and initiate web elements
+     */
     public SearchPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
+    /**
+     * @return
+     * Method which test is page loaded or not
+     */
     public boolean isPageLoaded() {
     return webDriver.getCurrentUrl().contains("/search/results")
                          && webDriver.getTitle().contains(" | Поиск | LinkedIn")
                          && searchBar.isDisplayed();
      }
 
+    /**
+     * @return
+     * Method which search term in list
+     */
     public int getSearchResultsCount() {
         return searchResultList.size();
     }
