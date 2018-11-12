@@ -60,10 +60,10 @@ public class LoginPage extends BasePage {
         if (webDriver.getCurrentUrl().contains("/feed")) {
             return (T) new HomePage(webDriver);
         }
-        if (webDriver.getCurrentUrl().contains("uas/login-submit")) {
-            return (T) new SubmitPage(webDriver);
-        } else {
+        if (webDriver.getCurrentUrl().contains("https://www.linkedin.com/")) {
             return (T) new LoginPage(webDriver);
+        } else {
+            return (T) new SubmitPage(webDriver);
         }
     }
 
