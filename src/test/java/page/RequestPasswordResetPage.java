@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import util.GMailService;
 
-import static java.lang.Thread.sleep;
-
 public class RequestPasswordResetPage extends BasePage{
 
     @FindBy(id="username")

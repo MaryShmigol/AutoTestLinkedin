@@ -11,10 +11,10 @@ public class SetNewPasswordPage extends BasePage{
     @FindBy(id= "newPasword")
     private WebElement newPassword;
 
-    @FindBy(id= "confirmPassword")
+    @FindBy(xpath = "//input[@id = 'confirmPassword']")
     private WebElement confirmPassword;
 
-    @FindBy(id = "reset-password-submit-button")
+    @FindBy(xpath=  "//button[@id = 'reset-password-submit-button']")
     private WebElement resetPassword;
 
     /**
@@ -31,17 +31,17 @@ public class SetNewPasswordPage extends BasePage{
      * Method which test is page loaded or not
      */
     public boolean isPageLoaded() {
-        return  webDriver.getCurrentUrl().contains("checkpoint/rp/password-reset")
-                && webDriver.getTitle().contains("Изменить пароль | LinkedIn")
-                && isResetPasswordOnDisplayed();
+        return  //webDriver.getCurrentUrl().contains("checkpoint/rp/password-reset")
+                //&& webDriver.getTitle().contains("Изменить пароль | LinkedIn")
+                 isConfirmPasswordOnDisplayed();
     }
 
     /**
      * @return
      * Method which show Reset Password Button is visible
      */
-    private boolean isResetPasswordOnDisplayed() {
-        return resetPassword.isDisplayed();
+    private boolean isConfirmPasswordOnDisplayed() {
+        return confirmPassword.isDisplayed();
     }
 
     /**

@@ -10,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class RequestPasswordResetSubmitPage extends BasePage{
 
-    @FindBy(className = "different__email different__email--desktop")
+    @FindBy(xpath = "//button[@id='resend-url']")
     private WebElement textLinkButton;
 
 
@@ -47,14 +47,15 @@ public class RequestPasswordResetSubmitPage extends BasePage{
      */
     public SetNewPasswordPage navigateToLinkFromEmail(){
 
-        String messageSubject = "Сергей, данное сообщение содержит ссылку для изменения пароля";
+        String messageSubject = "Сергей, данное сообщение содержит ссылку";
         String messageTo = "uu08474@gmail.com";
         String messageFrom = "security-noreply@linkedin.com";
 
         String message = gMailService.waitMessage(messageSubject,messageTo, messageFrom, 60);
         System.out.println("Content:"+ message);
         String resetPasswordLink = StringUtils.substringBetween(
-                message, "нажмите <a href=\"", "\"").replace("amp;", "");
+                message, "\"Чтобы изменить пароль в LinkedIn, нажмите <a href=\\\"\", \">здесь</a>\"",
+                "\"").replace("amp;", "");
         System.out.println(resetPasswordLink);
         webDriver.get(resetPasswordLink);
 

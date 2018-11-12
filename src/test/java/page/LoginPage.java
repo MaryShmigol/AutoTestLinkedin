@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
-
-    private WebDriver webDriver;
+public class LoginPage extends BasePage {
 
     @FindBy(xpath = "//*[@id='login-email']")
     private WebElement userEmailField;
@@ -47,10 +45,10 @@ public class LoginPage {
     }
 
     /**
+     * Method which enter to input email, password and click on submit button and login into Linkedin
      * @param userEmail
      * @param userPassword
      * @param <T>
-     * Method which enter to input email, password and click on submit button and login into Linkedin
      */
     public <T> T login(String userEmail, String userPassword){
         userEmailField.sendKeys(userEmail);

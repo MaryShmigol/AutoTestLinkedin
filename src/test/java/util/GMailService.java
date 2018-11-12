@@ -39,7 +39,7 @@ public class GMailService {
      */
     public GMailService(){
         this.user = "uu08474@gmail.com";
-        this.pass = "hello228606";
+        this.pass = "masha228606";
     }
 
     /**
