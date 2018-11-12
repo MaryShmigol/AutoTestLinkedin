@@ -31,6 +31,7 @@ public class SetNewPasswordPage extends BasePage{
      * Method which test is page loaded or not
      */
     public boolean isPageLoaded() {
+                 //потавить wait по загрузке страницы
         return  //webDriver.getCurrentUrl().contains("checkpoint/rp/password-reset")
                 //&& webDriver.getTitle().contains("Изменить пароль | LinkedIn")
                  isConfirmPasswordOnDisplayed();

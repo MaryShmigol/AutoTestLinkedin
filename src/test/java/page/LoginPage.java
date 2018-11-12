@@ -41,14 +41,16 @@ public class LoginPage extends BasePage {
      * Method which show signInButton is visible
      */
     public boolean isSignInButtonDisplayed() {
+
         return signInButton.isDisplayed();
     }
 
     /**
      * Method which enter to input email, password and click on submit button and login into Linkedin
-     * @param userEmail
-     * @param userPassword
-     * @param <T>
+     * @param userEmail-String with user Email
+     * @param userPassword - String with user Password
+     * @param <T> - generic type to cat different page object
+     * @return - either Home Page one of the most page
      */
     public <T> T login(String userEmail, String userPassword){
         userEmailField.sendKeys(userEmail);
